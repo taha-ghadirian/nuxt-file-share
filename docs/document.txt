@@ -1,0 +1,7 @@
+Document:
+
+Title
+CustomCode
+Description
+File
+Type (Enum:  Public / Private)

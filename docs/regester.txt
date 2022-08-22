@@ -1,0 +1,20 @@
+register[post]:
+
+username *
+email *
+password * 
+password Repeat * 
+nationalCode
+firstName * 
+lastName
+FatherName
+levelOfEducation * (Enum / ممبراشو برات ارسال میکنم)
+job
+phonNumber *
+address
+================================================================
+دسته بندی ها:
+
+اطلاعات ثبت نام (Required)
+اطلاعات هویتی (Optional)
+اطلاعات تماس (Optional)

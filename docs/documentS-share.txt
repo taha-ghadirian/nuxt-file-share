@@ -1,0 +1,9 @@
+DocumentShare:
+[get]:
+UserId
+UserName
+
+[post]:
+DocumentId
+UserId
+Permission (Enum:  Viewer (0) / FullAccess (1) )
