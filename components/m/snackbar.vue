@@ -46,7 +46,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: 'AppSnackBar',
+  name: 'MoleculeSnackBar',
   data() {
     return {
       visible: false,
