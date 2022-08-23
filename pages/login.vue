@@ -10,6 +10,12 @@
       برای ورود به File Sharing اطلاعات زیر را وارد کنید
     </p>
     <O-AuthFormLogin></O-AuthFormLogin>
+    <NuxtLink
+      class="v-btn mt-3 v-btn--block v-btn--is-elevated v-btn--has-bg theme--light v-size--default"
+      to="/register"
+    >
+      ثبت نام
+    </NuxtLink>
   </section>
 </template>
 
