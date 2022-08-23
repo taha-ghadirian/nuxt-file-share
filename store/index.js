@@ -1,4 +1,5 @@
 export const state = () => ({
+  mini: false,
   snackbar: {
     message: '',
     color: 'error',
@@ -7,6 +8,7 @@ export const state = () => ({
 })
 
 export const mutations = {
+  SET_MINI: (state) => (state.mini = !state.mini),
   SET_SNACK_BAR_OPTION: (state, value) => {
     state.snackbar.message = value.message
     state.snackbar.color = value.color
