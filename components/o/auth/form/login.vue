@@ -1,13 +1,13 @@
 <template>
   <M-BoxForm :submit="submitLoginForm">
     <M-BoxInput
-      v-model="username"
+      v-model="loginFormData.username"
       rules="required|min:5|max:100"
       label="نام کاربری"
       solo
     ></M-BoxInput>
     <M-BoxInput
-      v-model="password"
+      v-model="loginFormData.password"
       rules="required|min:8|max:100"
       type="password"
       label="رمزعبور"
@@ -22,13 +22,33 @@ export default {
   name: 'LoginFormOrganism',
   data() {
     return {
-      username: '',
-      password: '',
+      loginFormData: {
+        username: '',
+        password: '',
+      },
     }
   },
   methods: {
-    submitLoginForm() {
-      alert('loggedIn')
+    async submitLoginForm() {
+      const response = await this.$auth.loginWith('local', {
+        data: this.loginFormData,
+      })
+      if (response.isSuccess !== true) {
+        if (response.errors) {
+          this.$store.commit('SET_SNACK_BAR_OPTION', {
+            message: response.errors,
+            color: 'error',
+            status: response.status,
+          })
+        } else {
+          this.$nuxt.error({
+            status: response.status ?? 500,
+            message:
+              response.errors ??
+              'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
+          })
+        }
+      }
     },
   },
 }
