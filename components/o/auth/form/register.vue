@@ -1,11 +1,11 @@
 <template>
   <!-- قبل از ریویو این بخش به بخش زیر مراجعه نمایید -->
   <!-- /docs/register.txt -->
-  <M-BoxForm :submit="submitLoginForm">
+  <M-BoxForm :submit="submitRegisterForm">
     <v-row>
       <v-col cols="6">
         <M-BoxInput
-          v-model="username"
+          v-model="registerFormData.username"
           rules="required|min:5|max:100"
           label="نام کاربری*"
           solo
@@ -13,7 +13,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="email"
+          v-model="registerFormData.email"
           rules="required|min:5|max:100|email"
           label="ایمیل*"
           type="email"
@@ -22,7 +22,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="password"
+          v-model="registerFormData.password"
           rules="required|min:8|max:100"
           type="password"
           label="رمزعبور*"
@@ -40,7 +40,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="nationalCode"
+          v-model="registerFormData.nationalCode"
           rules="min:3|max:10"
           type="text"
           label="کد ملی"
@@ -49,7 +49,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="firstName"
+          v-model="registerFormData.firstName"
           rules="required|min:3|max:30"
           type="text"
           label="نام*"
@@ -58,7 +58,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="lastName"
+          v-model="registerFormData.lastName"
           rules="min:3|max:30"
           type="text"
           label="نام خانوادگی"
@@ -67,9 +67,10 @@
       </v-col>
       <v-col cols="6">
         <M-BoxSelect
-          v-model="educationLevel"
+          v-model="registerFormData.educationLevel"
           solo
-          label="مقطع تحصیلی"
+          rules="required"
+          label="مقطع تحصیلی*"
           :items="educationLevelItems"
           item-text="text"
           item-value="value"
@@ -78,7 +79,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="job"
+          v-model="registerFormData.job"
           rules="min:3|max:30"
           type="text"
           label="شغل"
@@ -87,7 +88,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="fatherName"
+          v-model="registerFormData.fatherName"
           rules="min:3|max:30"
           type="text"
           label="نام پدر"
@@ -96,7 +97,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="phonNumber"
+          v-model="registerFormData.phoneNumber"
           rules="length:11"
           type="number"
           label="شماره تلفن همراه"
@@ -105,7 +106,7 @@
       </v-col>
       <v-col cols="6">
         <M-BoxInput
-          v-model="phonNumber"
+          v-model="registerFormData.homeNumber"
           rules="length:10"
           type="number"
           label="شماره تلفن منزل"
@@ -114,7 +115,7 @@
       </v-col>
       <v-col cols="12">
         <M-BoxTextarea
-          v-model="address"
+          v-model="registerFormData.address"
           rules="min:10|max:100"
           type="text"
           label="آدرس محل سکونت"
@@ -140,23 +141,52 @@ export default {
         { text: 'دکترا', value: 6 },
         { text: 'سایر', value: 0 },
       ],
-      username: '',
-      email: '',
-      password: '',
       passwordRepeat: '',
-      nationalCode: '',
-      firstName: '',
-      lastName: '',
-      fatherName: '',
-      educationLevel: null,
-      job: '',
-      phonNumber: '',
-      address: '',
+      registerFormData: {
+        username: '',
+        email: '',
+        password: '',
+        nationalCode: '',
+        firstName: '',
+        lastName: '',
+        fatherName: '',
+        educationLevel: null,
+        job: '',
+        phoneNumber: '',
+        homeNumber: '',
+        address: '',
+      },
     }
   },
   methods: {
-    submitRegisterForm() {
-      alert('registerd')
+    async submitRegisterForm() {
+      const response = await this.$axios.$post(
+        'Identity/Register',
+        this.registerFormData
+      )
+      if (response.isSuccess !== true) {
+        if (response.errors) {
+          this.$store.commit('SET_SNACK_BAR_OPTION', {
+            message: response.errors,
+            color: 'error',
+            status: response.status,
+          })
+        } else {
+          this.$nuxt.error({
+            status: response.status ?? 500,
+            message:
+              response.errors ??
+              'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
+          })
+        }
+      } else if (response.isSuccess === true) {
+        this.$store.commit('SET_SNACK_BAR_OPTION', {
+          message: 'ثبت نام شما با موفقت انجام شد',
+          color: 'green',
+          status: 200,
+        })
+        this.$router.push('/login')
+      }
     },
   },
 }
