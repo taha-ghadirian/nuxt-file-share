@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'MoleculeSnackBar',
@@ -53,7 +53,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['snackbar']),
+    ...mapState(['snackbar']),
   },
   watch: {
     snackbar: {
