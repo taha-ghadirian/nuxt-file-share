@@ -1,4 +1,4 @@
-export const store = () => ({
+export const state = () => ({
   snackbar: {
     message: '',
     color: 'error',
@@ -6,10 +6,10 @@ export const store = () => ({
   },
 })
 
-export const mutations = () => ({
+export const mutations = {
   SET_SNACK_BAR_OPTION: (state, value) => {
     state.snackbar.message = value.message
     state.snackbar.color = value.color
     state.snackbar.status = value.status
   },
-})
+}
