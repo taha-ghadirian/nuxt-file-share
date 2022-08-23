@@ -10,7 +10,7 @@ lastName
 FatherName
 levelOfEducation * (Enum / ممبراشو برات ارسال میکنم)
 job
-phonNumber *
+phonNumber 
 address
 ================================================================
 دسته بندی ها:
