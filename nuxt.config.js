@@ -51,18 +51,18 @@ export default {
     strategies: {
       local: {
         token: {
-          property: 'jwT_Token',
+          property: 'jwtToken',
           global: true,
           // required: true,
           // type: 'Bearer'
         },
         user: {
           property: '',
-          // autoFetch: true
+          autoFetch: false,
         },
         endpoints: {
           login: {
-            url: 'Authentication/VerifyLoginCode',
+            url: 'Identity/Login',
             method: 'POST',
           },
           logout: false,
@@ -77,7 +77,8 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://192.168.33.239:8000/V1/',
+    // baseURL: 'http://192.168.33.239:8000/V1/',
+    baseURL: 'http://localhost:8000/V1/',
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
