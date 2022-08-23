@@ -4,14 +4,14 @@
       v-model="username"
       rules="required|min:5|max:100"
       label="نام کاربری"
-      outlined
+      solo
     ></M-BoxInput>
     <M-BoxInput
       v-model="password"
       rules="required|min:8|max:100"
       type="password"
       label="رمزعبور"
-      outlined
+      solo
     ></M-BoxInput>
     <v-btn type="submit" block color="primary"> ورود </v-btn>
   </M-BoxForm>
