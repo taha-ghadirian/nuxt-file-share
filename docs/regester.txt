@@ -1,20 +1,48 @@
 register[post]:
 
-username *
-email *
-password * 
-password Repeat * 
-nationalCode
-firstName * 
-lastName
-FatherName
-levelOfEducation * (Enum / ممبراشو برات ارسال میکنم)
-job
-phonNumber 
-address
+  username *
+  email *
+  password * 
+  password Repeat * 
+  nationalCode
+  firstName * 
+  lastName
+  FatherName
+  levelOfEducation * (Enum / ممبراشو برات ارسال میکنم)
+  job
+  phonNumber 
+  address
 ================================================================
+
 دسته بندی ها:
 
-اطلاعات ثبت نام (Required)
-اطلاعات هویتی (Optional)
-اطلاعات تماس (Optional)
+  اطلاعات ثبت نام (Required)
+  اطلاعات هویتی (Optional)
+  اطلاعات تماس (Optional)
+===============================================================
+
+validation
+
+[CustomMinLength(3), MaxLength(100), Required] string UserName,
+
+[MaxLength(100), PasswordPropertyText, Required] string Password, 
+
+[EmailAddress, CustomMinLength(3), MaxLength(100), DataType(DataType.EmailAddress), Required] string Email,
+
+[MinLength(3), MaxLength(30), Required] string FirstName, 
+
+[CustomMinLength(3), MaxLength(30)] string? LastName, 
+
+[CustomMinLength(3), MaxLength(30)] string? FatherName, 
+
+[CustomMinLength(3), MaxLength(10), RegularExpression(@"[0-9]{10}")] string? NationalCode,
+
+[Required] EducationLevel EducationLevel,
+
+[CustomMinLength(3), MaxLength(30)] string? Job, 
+
+[CustomMinLength(11), MaxLength(11), RegularExpression(@"09[0-9]{9}")] string? PhoneNumber,
+
+[CustomMinLength(11), MaxLength(11), RegularExpression(@"0[0-9]{10}")] string? HomeNumber,
+
+[CustomMinLength(10), MaxLength(800)] string? Address
