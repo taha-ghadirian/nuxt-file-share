@@ -16,7 +16,7 @@
       <v-icon v-show="!mini">mdi-dots-vertical</v-icon>
     </v-btn>
 
-    <v-app-bar-title>BAMA TRICKY</v-app-bar-title>
+    <v-app-bar-title>File Shering</v-app-bar-title>
 
     <v-spacer />
 
