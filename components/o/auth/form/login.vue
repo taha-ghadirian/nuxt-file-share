@@ -18,6 +18,8 @@
 </template>
 
 <script>
+/* eslint camelcase: off */
+import jwt_decode from 'jwt-decode'
 export default {
   name: 'LoginFormOrganism',
   data() {
@@ -33,8 +35,8 @@ export default {
       const response = await this.$auth.loginWith('local', {
         data: this.loginFormData,
       })
-      if (response.isSuccess !== true) {
-        if (response.errors) {
+      if (response.data.isSuccess !== true) {
+        if (response.data.errors) {
           this.$store.commit('SET_SNACK_BAR_OPTION', {
             message: response.errors,
             color: 'error',
@@ -48,6 +50,8 @@ export default {
               'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
           })
         }
+      } else {
+        this.$auth.setUser(jwt_decode(response.data.jwtToken))
       }
     },
   },
