@@ -23,9 +23,9 @@ register[post]:
 
 validation
 
-[CustomMinLength(3), MaxLength(100), Required] string UserName,
+[MinLength(5), MaxLength(100), Required] string UserName,
 
-[MaxLength(100), PasswordPropertyText, Required] string Password, 
+[MinLength(8), MaxLength(100), PasswordPropertyText, Required] string Password, 
 
 [EmailAddress, CustomMinLength(3), MaxLength(100), DataType(DataType.EmailAddress), Required] string Email,
 
