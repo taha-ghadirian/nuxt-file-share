@@ -8,7 +8,7 @@
   >
     <v-list-item v-if="$auth.loggedIn" class="px-2">
       <v-list-item-content>
-        <v-list-item-title> {{ $auth.user.name }}</v-list-item-title>
+        <v-list-item-title> {{ $auth.user.userName }}</v-list-item-title>
         <v-list-item-subtitle> {{ $auth.user.email }} </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>

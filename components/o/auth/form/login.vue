@@ -18,8 +18,6 @@
 </template>
 
 <script>
-/* eslint camelcase: off */
-import jwt_decode from 'jwt-decode'
 export default {
   name: 'LoginFormOrganism',
   data() {
@@ -50,8 +48,6 @@ export default {
               'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
           })
         }
-      } else {
-        this.$auth.setUser(jwt_decode(response.data.jwtToken))
       }
     },
   },

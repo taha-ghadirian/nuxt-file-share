@@ -58,7 +58,7 @@ export default {
         },
         user: {
           property: '',
-          autoFetch: false,
+          // autoFetch: true,
         },
         endpoints: {
           login: {
@@ -66,7 +66,10 @@ export default {
             method: 'POST',
           },
           logout: false,
-          user: false,
+          user: {
+            url: 'Identity/GetMe',
+            method: 'GET',
+          },
         },
         // tokenRequired: true,
         tokenType: '',
