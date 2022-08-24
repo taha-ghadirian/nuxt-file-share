@@ -5,3 +5,10 @@ CustomCode
 Description
 File
 Type (Enum:  Public / Private)
+
+
+int? Code,
+[Required, MinLength(3), MaxLength(50)] string Title,
+[CustomMinLength(3), MaxLength(500)] string? Description,
+[CustomMinLength(3), MaxLength(50)] [SwaggerSchema("Set this property only if you want to change the default file name.")] string? FileName,
+[Required] DocumentAccess DocumentAccess
