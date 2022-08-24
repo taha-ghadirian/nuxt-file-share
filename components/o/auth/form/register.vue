@@ -160,32 +160,58 @@ export default {
   },
   methods: {
     async submitRegisterForm() {
-      const response = await this.$axios.$post(
-        'Identity/Register',
-        this.registerFormData
-      )
-      if (response.isSuccess !== true) {
-        if (response.errors) {
+      try {
+        const response = await this.$axios.$post(
+          'Identity/Register',
+          this.registerFormData
+        )
+        if (response.isSuccess !== true) {
+          if (response.errors) {
+            this.$store.commit('SET_SNACK_BAR_OPTION', {
+              message: response.errors,
+              color: 'error',
+              status: response.status,
+            })
+          } else {
+            this.$nuxt.error({
+              status: response.status ?? 500,
+              message:
+                response.errors ??
+                'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
+            })
+          }
+        } else if (response.isSuccess === true) {
           this.$store.commit('SET_SNACK_BAR_OPTION', {
-            message: response.errors,
-            color: 'error',
-            status: response.status,
+            message: 'ثبت نام شما با موفقت انجام شد',
+            color: 'green',
+            status: 200,
           })
-        } else {
-          this.$nuxt.error({
-            status: response.status ?? 500,
-            message:
-              response.errors ??
-              'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
-          })
+          this.$router.push('/login')
         }
-      } else if (response.isSuccess === true) {
-        this.$store.commit('SET_SNACK_BAR_OPTION', {
-          message: 'ثبت نام شما با موفقت انجام شد',
-          color: 'green',
-          status: 200,
-        })
-        this.$router.push('/login')
+      } catch (err) {
+        if (err.response.isSuccess !== true) {
+          if (err.response.errors) {
+            this.$store.commit('SET_SNACK_BAR_OPTION', {
+              message: err.response.errors,
+              color: 'error',
+              status: err.response.status,
+            })
+          } else {
+            this.$nuxt.error({
+              status: err.response.status ?? 500,
+              message:
+                err.response.errors ??
+                'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
+            })
+          }
+        } else if (err.response.isSuccess === true) {
+          this.$store.commit('SET_SNACK_BAR_OPTION', {
+            message: 'ثبت نام شما با موفقت انجام شد',
+            color: 'green',
+            status: 200,
+          })
+          this.$router.push('/login')
+        }
       }
     },
   },

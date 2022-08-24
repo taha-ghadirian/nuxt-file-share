@@ -30,23 +30,42 @@ export default {
   },
   methods: {
     async submitLoginForm() {
-      const response = await this.$auth.loginWith('local', {
-        data: this.loginFormData,
-      })
-      if (response.data.isSuccess !== true) {
-        if (response.data.errors) {
-          this.$store.commit('SET_SNACK_BAR_OPTION', {
-            message: response.errors,
-            color: 'error',
-            status: response.status,
-          })
-        } else {
-          this.$nuxt.error({
-            status: response.status ?? 500,
-            message:
-              response.errors ??
-              'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
-          })
+      try {
+        const response = await this.$auth.loginWith('local', {
+          data: this.loginFormData,
+        })
+        if (response.data.isSuccess !== true) {
+          if (response.data.errors) {
+            this.$store.commit('SET_SNACK_BAR_OPTION', {
+              message: response.errors,
+              color: 'error',
+              status: response.status,
+            })
+          } else {
+            this.$nuxt.error({
+              status: response.status ?? 500,
+              message:
+                response.errors ??
+                'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
+            })
+          }
+        }
+      } catch (err) {
+        if (err.response.data.isSuccess !== true) {
+          if (err.response.data.errors) {
+            this.$store.commit('SET_SNACK_BAR_OPTION', {
+              message: err.response.errors,
+              color: 'error',
+              status: err.response.status,
+            })
+          } else {
+            this.$nuxt.error({
+              status: err.response.status ?? 500,
+              message:
+                err.response.errors ??
+                'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
+            })
+          }
         }
       }
     },
