@@ -95,7 +95,7 @@ export default {
       try {
         const response = await this.$axios.post('document', this.initFormData())
         if (response.status !== 201) {
-          if (response.data.errors) {
+          if (response?.data?.errors) {
             this.$store.commit('SET_SNACK_BAR_OPTION', {
               message: response.data.errors,
               color: 'error',
@@ -103,9 +103,9 @@ export default {
             })
           } else {
             this.$nuxt.error({
-              status: response.status ?? 500,
+              status: response?.status ?? 500,
               message:
-                response.errors ??
+                response?.errors ??
                 'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
             })
           }
@@ -117,17 +117,17 @@ export default {
           })
         }
       } catch (err) {
-        if (err.response.data.errors) {
+        if (err?.response?.data?.errors) {
           this.$store.commit('SET_SNACK_BAR_OPTION', {
             message: err.response.data.errors,
             color: 'error',
-            status: err.response.data.status,
+            status: err?.response?.status ?? 500,
           })
         } else {
           this.$nuxt.error({
-            status: err.response.data.status ?? 500,
+            status: err?.response?.status ?? 500,
             message:
-              err.response.data.errors ??
+              err?.message ??
               'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
           })
         }
