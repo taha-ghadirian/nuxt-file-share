@@ -35,7 +35,7 @@ export default {
           data: this.loginFormData,
         })
         if (response.data.isSuccess !== true) {
-          if (response.data.errors) {
+          if (response.data?.errors) {
             this.$store.commit('SET_SNACK_BAR_OPTION', {
               message: response.errors,
               color: 'error',
@@ -51,21 +51,19 @@ export default {
           }
         }
       } catch (err) {
-        if (err.response.data.isSuccess !== true) {
-          if (err.response.data.errors) {
-            this.$store.commit('SET_SNACK_BAR_OPTION', {
-              message: err.response.errors,
-              color: 'error',
-              status: err.response.status,
-            })
-          } else {
-            this.$nuxt.error({
-              status: err.response.status ?? 500,
-              message:
-                err.response.errors ??
-                'کابر عزیز مشکلی پیش آمده است. ما به آن رسیدگی میکنیم',
-            })
-          }
+        if (err?.response) {
+          this.$store.commit('SET_SNACK_BAR_OPTION', {
+            message: 'نام کاربری یا رمز عبور اشتباه میباشد',
+            color: 'error',
+            status: err.response.status ?? 406,
+          })
+        } else {
+          this.$store.commit('SET_SNACK_BAR_OPTION', {
+            message:
+              err?.message ?? 'خطایی رخ داده است. ما به آن رسیدگی میکنیم',
+            color: 'error',
+            status: err?.response?.status ?? 500,
+          })
         }
       }
     },
