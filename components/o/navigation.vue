@@ -41,15 +41,15 @@ export default {
     return {
       navigationitems: [
         {
+          title: 'خانه',
+          link: '/',
+          icon: 'mdi-home',
+        },
+        {
           title: 'بارگذاری سند',
           link: '/upload',
           icon: 'mdi-file-document-multiple-outline',
         },
-        // {
-        //   title: 'بارگذاری سند',
-        //   link: '/upload',
-        //   icon: 'mdi-file-document-multiple-outline',
-        // },
       ],
       right: true,
     }
